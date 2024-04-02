@@ -59,6 +59,7 @@ public class Test_frequency {
 
         double sum = 0;
         for (int i = 0; i < N; i++) {
+            System.out.println(arr[i]);
             sum += arr[i];
         }
         double n = N;

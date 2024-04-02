@@ -1,11 +1,5 @@
 package baekjoon;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /*
 산술평균 : N개의 수들의 합을 N으로 나눈 값
 중앙값 : N개의 수들을 증가하는 순서로 나열했을 경우 그 중앙에 위치하는 값
@@ -16,7 +10,7 @@ public class N_2108 {
     static void heapSort(int[] arr){
         //완전 이진트리 만들기(상향식)
         int size = arr.length;
-        for(int i=1;i<size-1;i++){
+        for(int i=1;i<size;i++){
             int c = i;
             while (c!=0){
                 int root = (c-1)/2;
@@ -26,9 +20,10 @@ public class N_2108 {
                     arr[root] = temp;
                 }
                 c=root;
-            }
 
+            }
         }
+
 
         //정렬하기
         for(int i=size-1;i>=0;i--){
@@ -56,41 +51,41 @@ public class N_2108 {
 
     //최빈값
     static int frequent(int[] arr) {
-        int c = 1;
-        int max = 0;
-        int value = arr[0];
+        int count = 0;
+        int max = -1;
+        int cur_val = arr[0];
+        boolean check = false;
 
-        for(int i = 1;i< arr.length-1;i++){
-            if(arr[i]==arr[i-1]){
-                c++;
+        for(int i = 0;i< arr.length-1;i++){
+            System.out.println("====================");
+            System.out.println("i = "+i);
+            if(arr[i]==arr[i+1]){
+                count++;
+                System.out.println("arr[i]==arr[i+1] : count "+count);
             }else{
-                if(c>max){
-                    max = c;
-                    value = arr[i-1];
-                }
-                c=1;
+                count = 0;
+                System.out.println("arr[i]!=arr[i+1] : count "+count);
             }
-        }
 
-        //배열 마지막 요소 처리
-        if(c>max){
-            max = c;
-            value = arr[arr.length-1];
-        }
+            if (count > max) {
+                max = count;
+                cur_val = arr[i];
+                check = true;
+                System.out.println("if (count > max) : max=count , max "+max);
+                System.out.println("if (count > max) : cur_val "+cur_val);
+                System.out.println("if (count > max) : check "+check);
+            }else if(max==count && check){
+                cur_val = arr[i];
+                check= false;
+                System.out.println("else if(max==count && check) : cur_val "+cur_val);
+                System.out.println("else if(max==count && check) : check "+check);
+            }
+            System.out.println("====================");
 
-        if(max ==1){
-            //value = arr[1];
         }
-
-        return value;
+        System.out.println("cur_val :"+ cur_val);
+        return cur_val;
     }
-
-
-
-
-
-
-
 
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -98,26 +93,20 @@ public class N_2108 {
 
         int N= Integer.parseInt(bf.readLine());
         int[] arr = new int[N];
-        int cnt = 0;
+        double sum = 0;
         for(int i=0;i<N;i++){
             arr[i] = Integer.parseInt(bf.readLine());
-
+            sum += arr[i];
         }
 
         heapSort(arr);
 
-        //평균 출력
-        double sum = 0;
-        for(int i=0;i<N;i++){
-            System.out.println(arr[i]);
-            sum += arr[i];
-        }
-        double n = N;
-        bw.write("평균"+Math.round(sum/n)+"\n");
-        bw.write("중앙값"+arr[N/2]+"\n");
-        bw.write("최빈값"+frequent(arr)+"\n");
-        int range = arr[N-1] - arr[0];
-        bw.write("차이"+range+"\n");
+
+        bw.write(Math.round(sum/N)+"\n");
+        bw.write(arr[(N-1)/2]+"\n");
+        bw.write(frequent(arr)+"\n");
+        bw.write((arr[N-1] - arr[0])+"\n");
+
         bw.flush();
         bw.close();
     }
