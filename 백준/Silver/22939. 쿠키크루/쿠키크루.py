@@ -27,15 +27,16 @@ for i in range(n):
                 topping[k].append([i,j])
     min = 10000
     type = 0
-    for k in range(4):
-        perm = permutations(topping[k],3)
-        
-        for p in perm:
-            #print(p)
-            d = dist(home,p[0])+dist(p[0],p[1])+dist(p[1],p[2])+dist(p[2],cookie)
-            if min>d:
-                min = d
-                type = k
-            #print(d, type)
+for k in range(4):
+    perm = permutations(topping[k],3)
+    
+    for p in perm:
+        #print(p)
+        d = dist(home,p[0])+dist(p[0],p[1])\
+            +dist(p[1],p[2])+dist(p[2],cookie)
+        if min>d:
+            min = d
+            type = k
+        #print(d, type)
         
 print(crew[type])
