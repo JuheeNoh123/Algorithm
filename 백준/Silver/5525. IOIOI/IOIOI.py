@@ -3,20 +3,23 @@ from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-ans = 'IOI'+('OI'*(n-1))
+ans = 0
 s =int(input())
 L=input().strip()
 idx=0
 cnt=0
-while idx<s:
-    for i in range(idx,s):
-        if L[i]=='I':
-            idx=i
-            break
-    if L[idx:idx+2*n+1]==ans:
+while idx<s-1:
+    
+    if L[idx:idx+3]=='IOI':
+        idx+=2
         cnt+=1
-    idx+=1
+        
+        if cnt==n:
+            ans+=1
+            cnt-=1
+    else:
+        idx+=1
+        cnt=0
 
 
-
-print(cnt)
+print(ans)
