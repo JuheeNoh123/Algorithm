@@ -8,7 +8,7 @@ while sum(L) != 0:
         L[1] -= 1
     
     cnt += 1
-    #print(L)
+
 if cnt > 1440:
     print(-1)
 else:
