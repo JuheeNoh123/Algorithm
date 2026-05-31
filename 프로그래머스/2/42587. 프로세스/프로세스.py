@@ -3,7 +3,7 @@ def solution(priorities, location):
     answer = 0
     l = []
     d = deque()
-    ans=[]
+    
     for i in range(len(priorities)):
         d.append([i,priorities[i]])
     while len(d):
@@ -13,6 +13,7 @@ def solution(priorities, location):
         if a[1]!=m:
             d.append(a)
         else:
-            ans.append(a[0])
-    answer=ans.index(location)+1
+            answer += 1
+            if a[0]==location:
+                break
     return answer
